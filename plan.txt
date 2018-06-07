@@ -9,7 +9,11 @@ mõõdetavat suurust (nt sise- ja välistemperatuuri).
 1.3. Kasutame droid4control relee plokki
 1.4. pymodbus selle kontrollimiseks
 2. kasutajaliides
-
+2.1. Näha tarbijate (releede) hetkeseisundit (sees/väljas).
+2.2. sättida tarbijat sisse/välja lülituma vastavalt kellaajale ja nädalapäevale
+(arvestamata midagi muud, nt elektri hinda, nö taimeri rezhiim)
+2.3. sättida tarbijat sisse/välja lülituma vastavalt elektri hinnale ning sise-
+ja välistemperatuurile nii, et summaarne rahakulu elektrile oleks minimaalne.
 
 Alamülesanne 1
 Raspberry Pi-l on olemas koodinäited (nt pythonis), mille abil saab releeploki
