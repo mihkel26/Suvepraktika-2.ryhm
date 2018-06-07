@@ -1,0 +1,46 @@
+Ülesanne :
+Programmeerida Raspberry Pi lülitama elektritarbijaid sisse-välja arvestades
+elektrienergia hinda, etteantud reegleid (temperatuurivahemikke) ning kahte
+mõõdetavat suurust (nt sise- ja välistemperatuuri).
+
+1. raspberry pi-l töötav rakendus
+1.1. muretseda elektrienergia hinnad
+1.2. muretseda raspberry pi jaoks temperatuurisensorid
+1.3. Kasutame droid4control relee plokki
+1.4. pymodbus selle kontrollimiseks
+2. kasutajaliides
+
+
+Alamülesanne 1
+Raspberry Pi-l on olemas koodinäited (nt pythonis), mille abil saab releeploki
+releesid sisse-välja lülitada. Tarvis on luua programm, mis minuti täpsusega
+lülitab ühte releed sisse või välja vastavalt sellele, millises seisus
+relee antud ajahetkel olema peab. Vajalik seisund antakse ette faili(de) abil.
+Seda programmi on võimalik süsteemis automaatselt igal minutil käivitada (nt cron-i abil).
+Iga tarbija kohta oleks üks selle programmi instants (erineva konfiguratsiooniga).
+Nii on võimalik juhitavaid tarbijaid lisada või muuta tarbija lülitusviisi ilma
+teiste tarbijate lülitamist segamata.
+
+Alamülesanne 2
+Luua veebipõhine kasutajaliides (töötab selles samas Rasperry Pi-s), mille
+abil on võimalik eelmises punktis nimetatud programmi(de)le juhiseid ette anda.
+Tarbija sisse või välja lülitamise juhised peab olema võimalik panna sõltuma
+elektri hinnast ning mõõtetavatest suurustest. Näiteks võiks võtta kas vannitoa
+põrandakütte või kartulisalve külmavalvuri kasutusjuhtumi. (Kartulisalves ei tohi
+temperatuur langeda allapoole etteantud suurust (nt 4C), muidu kartulid külmuvad
+ning muutuvad magusaks. Samuti ei tohi temperatuur salves minna liiga kõrgeks,
+sest siis hakkavad kartulid kasvama.)
+
+Elektri hind sõltub majapidamise poolt kasutatavast elektripaketist - võib sõltuda
+a) elektri börsihinnast ning võrgutasudest (päevane/öine),
+b) ainult võrgutasudest (päevne/öine),
+c) ainult börsihinnast
+d) olla vastavalt lepingule konstantne.
+
+Loodavas kasutajaliideses peaks olema võimalik
+a) näha tarbijate (releede) hetkeseisundit (sees/väljas).
+b) sättida tarbijat sisse/välja lülituma vastavalt kellaajale ja nädalapäevale
+ (arvestamata midagi muud, nt elektri hinda, nö taimeri rezhiim)
+c) sättida tarbijat sisse/välja lülituma vastavalt elektri hinnale ning sise-
+ja välistemperatuurile nii, et summaarne rahakulu elektrile oleks minimaalne.
+
