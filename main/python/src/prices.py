@@ -2,7 +2,7 @@ import csv
 import urllib.request
 import urllib.error
 
-url = 'https://dashboard.elering.ee/et/api/nps?type=price&start=2018-06-06+21%3A00%3A00&end=2018-06-07+21%3A00%3A00&format=csv'
+url = 'https://dashboard.elering.ee/et/api/nps?type=price&format=csv'
 data = []
 
 #Download electricity market price
