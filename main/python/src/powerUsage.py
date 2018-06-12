@@ -8,6 +8,5 @@ def get_kw():
 
 
 def get_mwh(time):
-    mwh = get_kw() / time / 1000
+    mwh = get_kw() * time / 1000
     return mwh
-
