@@ -81,7 +81,7 @@ if cmd == 3:  # read holding registers
     now = datetime.datetime.now()
     timeNow = now.hour + now.minute
     if startTime == timeNow:
-        os.system("sudo python main.py 1 0 4000 /dev/ttyUSB0")
+        os.system("sudo python main.py 1 0 FFFF /dev/ttyUSB0")
     if endTime == timeNow:
         os.system("sudo python main.py 1 0 0000 /dev/ttyUSB0")
 

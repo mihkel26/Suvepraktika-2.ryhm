@@ -18,6 +18,7 @@ url = "https://dashboard.elering.ee/et/api/nps?type=price&start=" + str(startdat
 urlToday = "https://dashboard.elering.ee/et/api/nps?type=price&start=" + str(yesterday) + "+21%3A00%3A00&end=" + str(
     today) + "+21%3A00%3A00&format=csv"
 
+
 def getAvgPrice():
     # Download electricity market price
     try:
@@ -44,6 +45,7 @@ def getAvgPrice():
 
     return avg
 
+
 def getTodayPrice():
     # Download electricity market price
     try:
@@ -60,5 +62,3 @@ def getTodayPrice():
                     [float(row[2].replace(",", "."))])
 
     return dataToday
-
-

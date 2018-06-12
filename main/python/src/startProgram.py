@@ -6,7 +6,7 @@ timeInput = float(8.00)
 data = prices.getPrices()
 print (data)
 
-def startTime(deviceTemperature, roomTemperature):
+#def startTime(deviceTemperature, roomTemperature):
 
 
-def endTime(deviceTemperature, roomTemperature):
+#def endTime(deviceTemperature, roomTemperature):
