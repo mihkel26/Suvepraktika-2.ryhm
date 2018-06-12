@@ -13,6 +13,7 @@ from pymodbus.transaction import *
 from pymodbus.register_read_message import *
 import startProgram
 import datetime
+
 cmd = 0
 
 argnum = len(sys.argv)
@@ -68,22 +69,22 @@ output = ''
 
 
 if cmd == 3:  # read holding registers
-    result = client.read_holding_registers(address=regaddr, count=regcount, unit=mba)  # response=''  # pymodbus
-    print(mba, regaddr, regcount, 'result', str(result.registers))
-    temps = result.registers
-    temp1 = temps[0] * 5 / 80
-    temp2 = temps[1] * 5 / 80
-    temp3 = temps[2] * 5 / 80
-    print(temp1, temp2, temp3)
-    startTime = startProgram.startTime(temp1, temp3)
-    endTime = startProgram.endTime(temp1, temp3)
-
-    now = datetime.datetime.now()
-    timeNow = now.hour + now.minute
-    if startTime == timeNow:
-        os.system("sudo python main.py 1 0 4000 /dev/ttyUSB0")
-    if endTime == timeNow:
-        os.system("sudo python main.py 1 0 0000 /dev/ttyUSB0")
+    # result = client.read_holding_registers(address=regaddr, count=regcount, unit=mba)  # response=''  # pymodbus
+    # print(mba, regaddr, regcount, 'result', str(result.registers))
+    # temps = result.registers
+    # temp1 = temps[0] * 5 / 80
+    # temp2 = temps[1] * 5 / 80
+    # temp3 = temps[2] * 5 / 80
+    # print(temp1, temp2, temp3)
+    # startTime = startProgram.startTime(temp1, temp3)
+    # endTime = startProgram.endTime(temp1, temp3)
+    #
+    # now = datetime.datetime.now()
+    # timeNow = now.hour + now.minute
+    # if startTime == timeNow:
+    #     os.system("sudo python main.py 1 0 4000 /dev/ttyUSB0")
+    # if endTime == timeNow:
+    #     os.system("sudo python main.py 1 0 0000 /dev/ttyUSB0")
 
 elif cmd == 6:  # kirjutamine, 1 register
     print('mba', mba, 'regaddr', regaddr, 'data', regcount, 'cmd', cmd)  # debug

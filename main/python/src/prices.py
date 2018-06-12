@@ -40,5 +40,3 @@ def getPrices():
         avg[el] = avg[el] / 7
 
     return (avg)
-
-print(getPrices())
