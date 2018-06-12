@@ -7,7 +7,7 @@ avgTempRise =
 data = prices.getPrices()
 print(data)
 
-def startTime(deviceTemperature, roomTemperature):
+def (deviceTemperature, roomTemperature):
 
 
 
