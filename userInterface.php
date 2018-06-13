@@ -1,63 +1,150 @@
 <?php 
 	$userNeeds = "";
 	$packetType = "";
-	$elecType = "";
-	$powerType = "";
+	$timeInput = null;
+	$tempInput = null;
+	$hourInput = null;
+	$minuteInput = null;
+	$hourToTxtFile = "";
 	
 	$packetTypeError = "";
-	$elecTypeError = "";
-	$powerTypeError = "";
+	$timeInputError = "";
+	$tempInputError = "";
+	$notice = "";
 	
 	//kas vajutati sumbit nuppu
 	if(isset($_POST["submitButton"])){
 		
 		if (isset($_POST["packetType"])){
 			if (empty($_POST["packetType"])){
-				$packetTypeError = "NB, kirjuta siia oma vajadused!";
+				$packetTypeError = "NB, Vali enda elektrituru plaan!";
 			}else{
 				$packetType = $_POST["packetType"];
-				echo $packetType;
+				//echo $packetType;
 		
 			}
+			
 		}
+		//echo "submit,";
 		
 		//kasutaja arvamuse omistamine
-		if (isset($_POST["elecType"])){
-			if (empty($_POST["elecType"])){
-				$elecTypeError = "NB, kirjuta siia oma vajadused!";
+		if (isset($_POST["hourSelect"])){
+			if(empty($_POST["hourSelect"])){
+				$notice = "Nb";
 			}else{
-				$elecType = $_POST["elecType"];
-				echo $elecType;
+				$hourSelect = $_POST["hourSelect"];
+				//echo $hourSelect;
+			}
+			
+		}
+		//echo $_POST["hourSelect"];
 		
+		
+		if (isset($_POST["minuteSelect"])){
+			if(empty($_POST["minuteSelect"])){
+				$notice = "Nb2";
+			}else{
+				$minuteSelect = $_POST["minuteSelect"];
+				//echo $minuteSelect;
 			}
 		}
 		
-		if (isset($_POST["powerType"])){
-			if (empty($_POST["powerType"])){
-				$powerTypeError = "NB, kirjuta siia oma vajadused!";
+		if(isset($_POST["tempSelect"])){
+			if(empty($_POST["tempSelect"])){
+				$notice = "Nb, vaja on temperatuuri";
 			}else{
-				$powerType = $_POST["powerType"];
-				echo $powerType;
-		
+				$tempInput = $_POST["tempSelect"];
 			}
 		}
+		//echo $_POST["tempSelect"];
 		
-	
+		
+		if (isset ($_POST["hourSelect"]) and isset ($_POST["minuteSelect"])){
+			if (($_POST["hourSelect"]) < 10) {
+				$hourToTxtFile = "0".($_POST["hourSelect"]);
+			} else {
+				$hourToTxtFile = $_POST["hourSelect"];
+			}
+			if (($_POST["minuteSelect"]) == 0) {
+				$minuteToTxtFile = "00";
+			} else {
+				$minuteToTxtFile = $_POST["minuteSelect"];
+			}
+			$timeInput = $hourToTxtFile ."." .$minuteToTxtFile;
+		} else {
+			$timeInputError = "Chosen time is not valid!";
+		}
+		//echo $timeInput;
+		
+		if(!empty($packetTypeError) and !empty($timeInputError) and !empty($tempInputError)){
+			echo "All Values have to be chosen";
+		} else {
+			$myFile = fopen("userNeeds.txt", "w") or die ("Ei saa avada(file peab olema 'w' õigusega");
+			fwrite($myFile, "packet,".$packetType."\n"."time,".$timeInput."\n"."temp,".$tempInput."\n");
+			fclose($myFile);
+			
+		}
+		
+	//hourSelectHTML
+	//minuteSelectHTML
 	}
 	
+	$hourSelectHTML = "";
+	$hourSelectHTML .= '<select name="hourSelect">' ."\n";
+	$hourSelectHTML .= '<option value="" selected disabled>hour</option>' ."\n";
+	for ($i = 1; $i < 25; $i ++){
+		if($i == $hourInput){
+			$hourSelectHTML .= '<option value="' .$i .'" selected>' .$i .'</option>' ."\n";
+		} else {
+			$hourSelectHTML .= '<option value="' .$i .'">' .$i .'</option>' ." \n";
+		}
+		
+	}
+	$hourSelectHTML.= "</select> \n";
+	
+	$minuteSelectHTML = "";
+	$minuteSelectHTML .= '<select name="minuteSelect">' ."\n";
+	$minuteSelectHTML .= '<option value="" selected disabled>minute</option>' ."\n";
+	for ($i = 0; $i < 60; $i += 15){
+		if($i == $minuteInput){
+			$minuteSelectHTML .= '<option value="' .$i .'" selected>' .$i .'</option>' ."\n";
+		} else {
+			$minuteSelectHTML .= '<option value="' .$i .'">' .$i .'</option>' ." \n";
+		}
+		
+	}
+	$minuteSelectHTML.= "</select> \n";
+	
+	$tempSelectHTML = "";
+	$tempSelectHTML .= '<select name="tempSelect">' ."\n";
+	$tempSelectHTML .= '<option value="" selected disabled>temp</option>' ."\n";
+	for ($i = 20; $i < 33; $i ++){
+		if($i == $tempInput){
+			$tempSelectHTML .= '<option value="' .$i .'" selected>' .$i .'</option>' ."\n";
+		} else {
+			$tempSelectHTML .= '<option value="' .$i .'">' .$i .'</option>' ." \n";
+		}
+		
+	}
+	$tempSelectHTML.= "</select> \n";
+	
+	/*$ledState = "";
 	$ledNotice = "";
 	if (isset($_POST["checkbox"])){
 		
 		if(!empty($_POST["checkbox"])){
 			//$ledNotice = "Led töötab";
 		} else {
-			//$ledNotice = "Led väljas";
+			$ledNotice = "Sees";
+			$ledState = $_POST["checkbox"];
 		}
 	}
+	//led
+	$ledFile = fopen("ledContr.txt", "w") or die ("Ei saa avada(file peab olema 'w' õigusega");
+	fwrite ($ledFile, $ledState);
+	fclose($ledFile);*/
 	
-	$myFile = fopen("userNeeds.txt", "w") or die ("Ei saa avada");
-	fwrite($myFile, $packetType."\n".$elecType."\n".$powerType."\n");
-	fclose($myFile);
+	//user
 	
 
 	
@@ -66,6 +153,7 @@
 <!DOCTYPE html>
 <head>
 	<title> User input </title>
+	<meta charset="UTF-8">
 </head>
 
 <style>
@@ -73,21 +161,26 @@
 
 <body>
 	<div id="write" style="text-align:center">
-	<h1> Sisesta oma eelistused </h1>
+	<h1> Sisesta oma soovid </h1>
 		<form method="POST">
 			<label>Siit vali </label>
 				<select name="packetType">
 					<option value="Tühi">---</option>
-					<option value="valik1">Valik1</option>
-					<option value="valik2">Valik2</option>
-					<option value="valik3">Valik3</option>
+					<option value="1">Constant</option>
+					<option value="2">Börs</option>
+					<option value="3">Päev/öö</option>
+					<option value="4">Börs/Päev/öö</option>
 				</select>
 			<br><br>
-			<label>Siia kirjuta elektri tüüp </label>
-			<input name="elecType" type="text">
+			<label>Sisesta kell, mis ajaks tahad, et põrand oleks soe</label>
+			<?php
+				echo $hourSelectHTML ."\n" . $minuteSelectHTML;
+			?>
 			<br><br>
-			<label>Siia kirjuta powertype </label>
-			<input name="powerType" type="text">
+			<label>Vali temperatuur, milleni tahad kütta </label>
+			<?php
+				echo $tempSelectHTML;
+			?>
 			<br><br>
 			<input name="submitButton" type="submit" value="Sisesta">
 	
@@ -96,11 +189,11 @@
 	</div> 
 		<br><br>
 		<br><br>
-		<div id="led">
+		<!--<div id="led">
 			<label> Kas led sees/väljas?</label>
 				<input type="checkbox">
 				<span class="slider"></span>
-		</div>
+		</div>-->
 		
 	
 </body>
