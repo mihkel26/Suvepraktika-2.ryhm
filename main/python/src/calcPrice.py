@@ -50,5 +50,3 @@ def const_fee(fee, start_hour, end_hour):
     sum_m = fee * time
 
     return sum_m
-
-
