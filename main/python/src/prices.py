@@ -59,6 +59,6 @@ def getTodayPrice():
         for row in reader:
             if row[0] == 'ee':
                 dataToday.append(
-                    [float(row[2].replace(",", "."))])
+                    float(row[2].replace(",", ".")))
 
     return dataToday
