@@ -23,7 +23,7 @@ if argnum < 4:
 mba = int(sys.argv[1])  # mb aadress
 regaddr = int(sys.argv[2])  # address to read or hex data to write
 port = sys.argv[4]
-print('port', port)  # debug
+#print('port', port)  # debug
 
 if ":" in port:
     host = port.split(':')[0]
@@ -41,7 +41,7 @@ else:
 
 if len(sys.argv[3]) == 4:  # write 1 register
     regcount = int(sys.argv[3], 16)  # data, hex kujul
-    print('writing single register data', regcount)
+    #print('writing single register data', regcount)
     cmd = 6
 else:
     if len(sys.argv[3]) < 3:
@@ -68,22 +68,19 @@ output = ''
 
 
 if cmd == 3:  # read holding registers
-    result = client.read_holding_registers(address=regaddr, count=regcount, unit=mba)  # response=''  # pymodbus
-    print(mba, regaddr, regcount, 'result', str(result.registers))
+    for i in range(3):
+        result = client.read_holding_registers(address=regaddr, count=regcount, unit=mba)  # response=''  # pymodbus
     temps = result.registers
-    temp1 = temps[0] * 5 / 80
-    temp2 = temps[1] * 5 / 80
-    temp3 = temps[2] * 5 / 80
-    print(temp1, temp2, temp3)
-    startTime = startProgram.startTime(temp1, temp3)
-    endTime = startProgram.endTime(temp1, temp3)
 
-    now = datetime.datetime.now()
-    timeNow = now.hour + now.minute
-    if startTime == timeNow:
-        os.system("sudo python main.py 1 0 FFFF /dev/ttyUSB0")
-    if endTime == timeNow:
-        os.system("sudo python main.py 1 0 0000 /dev/ttyUSB0")
+    if len(temps) == 3:
+        temp1 = temps[0] * 5 / 80
+        temp2 = temps[1] * 5 / 80
+        temp3 = temps[2] * 5 / 80
+        avg_temp = (temp1+temp2+temp3) / 3
+        print(avg_temp)
+    else:
+        print(temps[0] * 5 / 80.0)
+
 
 elif cmd == 6:  # kirjutamine, 1 register
     print('mba', mba, 'regaddr', regaddr, 'data', regcount, 'cmd', cmd)  # debug
