@@ -54,4 +54,4 @@ def const_fee(fee, start_hour, end_hour):
 
 def current_market():
     market = prices.get_today_price()
-    return market[now.hour]
+    return str(market[now.hour])
