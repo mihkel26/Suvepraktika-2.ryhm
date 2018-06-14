@@ -10,11 +10,11 @@ def turn_off():
 
 
 def get_room_temp():
-    return subprocess.check_output(["sudo", "python", "main.py", "1", "603", "1", "/dev/ttyUSB0"])
+    return subprocess.check_output(["sudo", "python", "main.py", "1", "603", "1", "/dev/ttyUSB0"]).decode("UTF-8")
 
 
 def get_dev_temp():
-    return subprocess.check_output(["sudo", "python", "main.py", "1", "600", "3", "/dev/ttyUSB0"])
+    return subprocess.check_output(["sudo", "python", "main.py", "1", "600", "3", "/dev/ttyUSB0"]).decode("UTF-8")
 
 
 def check_state():

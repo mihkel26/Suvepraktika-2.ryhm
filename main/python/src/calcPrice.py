@@ -7,7 +7,7 @@ now = datetime.datetime.now()
 
 def market_fee(start_hour, end_hour):
     time = end_hour - start_hour
-    today_price = prices.getTodayPrice()
+    today_price = prices.get_today_price()
     price = 0
     for i in range(time):
         price += today_price[start_hour + i] * powerUsage.get_mwh()
@@ -50,3 +50,8 @@ def const_fee(fee, start_hour, end_hour):
     sum_m = fee * time
 
     return sum_m
+
+
+def current_market():
+    market = prices.get_today_price()
+    return market[now.hour]

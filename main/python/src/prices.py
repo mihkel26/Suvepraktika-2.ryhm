@@ -19,7 +19,7 @@ urlToday = "https://dashboard.elering.ee/et/api/nps?type=price&start=" + str(yes
     today) + "+21%3A00%3A00&format=csv"
 
 
-def getAvgPrice():
+def get_avg_price():
     # Download electricity market price
     try:
         urllib.request.urlretrieve(url, 'output.csv')
@@ -46,7 +46,7 @@ def getAvgPrice():
     return avg
 
 
-def getTodayPrice():
+def get_today_price():
     # Download electricity market price
     try:
         urllib.request.urlretrieve(urlToday, 'outputToday.csv')
@@ -62,3 +62,5 @@ def getTodayPrice():
                     float(row[2].replace(",", ".")))
 
     return dataToday
+
+
