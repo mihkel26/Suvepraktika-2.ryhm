@@ -19,7 +19,7 @@ def get_dev_temp():
 
 def check_state():
     state = subprocess.check_output(["sudo", "python", "main.py", "1", "0", "1", "/dev/ttyUSB0"])
-    if state == 0.0:
+    if state == b'0.0\n':
         return "OFF"
     else:
         return "ON"
