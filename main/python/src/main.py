@@ -40,9 +40,9 @@ if cmd == 3:  # read holding registers
     temps = result.registers
 
     if len(temps) == 3:
-        temp1 = temps[0] * 5 / 80
-        temp2 = temps[1] * 5 / 80
-        temp3 = temps[2] * 5 / 80
+        temp1 = temps[0] * 5 / 80.0
+        temp2 = temps[1] * 5 / 80.0
+        temp3 = temps[2] * 5 / 80.0
         avg_temp = (temp1 + temp2 + temp3) / 3
         print(avg_temp)
     else:
