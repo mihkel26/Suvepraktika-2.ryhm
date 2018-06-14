@@ -6,6 +6,7 @@
 	$hourInput = null;
 	$minuteInput = null;
 	$hourToTxtFile = "";
+	$deviceState = "";
 	
 	$packetTypeError = "";
 	$timeInputError = "";
@@ -127,27 +128,12 @@
 		
 	}
 	$tempSelectHTML.= "</select> \n";
-	
-	/*$ledState = "";
-	$ledNotice = "";
-	if (isset($_POST["checkbox"])){
-		
-		if(!empty($_POST["checkbox"])){
-			//$ledNotice = "Led töötab";
-		} else {
-			$ledNotice = "Sees";
-			$ledState = $_POST["checkbox"];
-		}
-	}
-	//led
-	$ledFile = fopen("ledContr.txt", "w") or die ("Ei saa avada(file peab olema 'w' õigusega");
-	fwrite ($ledFile, $ledState);
-	fclose($ledFile);*/
-	
-	//user
-	
 
-	
+	//led
+	$deviceFile = fopen("devicestate.txt", "r") or die ("Ei saa avada");
+	$deviceState = fread($deviceFile, filesize("devicestate.txt");
+	fclose($deviceFile);
+
 ?>
 
 <!DOCTYPE html>
@@ -163,13 +149,13 @@
 	<div id="write" style="text-align:center">
 	<h1> Sisesta oma soovid </h1>
 		<form method="POST">
-			<label>Siit vali </label>
+			<label>Vali elektripakett </label>
 				<select name="packetType">
 					<option value="Tühi">---</option>
-					<option value="1">Constant</option>
-					<option value="2">Börs</option>
-					<option value="3">Päev/öö</option>
-					<option value="4">Börs/Päev/öö</option>
+					<option value="1">konstantne</option>
+					<option value="2">ainult börsihind</option>
+					<option value="3">ainult võrgutasudest</option>
+					<option value="4">elektri börsihinnast ning võrgutasudest</option>
 				</select>
 			<br><br>
 			<label>Sisesta kell, mis ajaks tahad, et põrand oleks soe</label>
@@ -183,17 +169,17 @@
 			?>
 			<br><br>
 			<input name="submitButton" type="submit" value="Sisesta">
-	
 			</form>
 		
 	</div> 
 		<br><br>
 		<br><br>
-		<!--<div id="led">
-			<label> Kas led sees/väljas?</label>
-				<input type="checkbox">
-				<span class="slider"></span>
-		</div>-->
+		<div id="deviceState">
+			<label> device on/off?</label>
+				<?php
+				    echo $deviceState
+				?>
+		</div>
 		
 	
 </body>
