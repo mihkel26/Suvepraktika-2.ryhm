@@ -5,7 +5,7 @@ import datetime
 now = datetime.datetime.now()
 
 
-def price_market(start_hour, end_hour):
+def market_fee(start_hour, end_hour):
     time = end_hour - start_hour
     today_price = prices.getTodayPrice()
     price = 0
@@ -46,11 +46,7 @@ def network_fee(day_fee, night_fee, start_hour, end_hour):
 
 
 def const_fee(fee, start_hour, end_hour):
-    sum = 0.0
     time = end_hour - start_hour
-    sum = fee * time
+    sum_m = fee * time
 
-    return sum
-
-
-print(network_fee(0.0445, 0.033, 7, 10))
+    return sum_m
