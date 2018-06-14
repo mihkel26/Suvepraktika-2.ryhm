@@ -18,7 +18,6 @@ mba = int(sys.argv[1])  # mb aadress
 regaddr = int(sys.argv[2])  # address to read or hex data to write
 port = sys.argv[4]
 
-
 client = ModbusClient(method='rtu', stopbits=1, bytesize=8, parity='E', baudrate=19200, timeout=1, port=port)
 
 if len(sys.argv[3]) == 4:  # write 1 register

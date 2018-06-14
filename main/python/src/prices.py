@@ -62,5 +62,3 @@ def get_today_price():
                     float(row[2].replace(",", ".")))
 
     return dataToday
-
-
