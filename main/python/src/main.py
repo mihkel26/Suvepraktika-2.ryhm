@@ -49,7 +49,6 @@ if cmd == 3:  # read holding registers
 
 
 elif cmd == 6:  # kirjutamine, 1 register
-    print('mba', mba, 'regaddr', regaddr, 'data', regcount, 'cmd', cmd)  # debug
     client.write_register(address=regaddr, value=regcount, unit=mba)  # only one regiter to write here
     if regcount == 65535:
         print("Device turned on")
