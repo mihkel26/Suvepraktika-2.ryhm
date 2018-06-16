@@ -19,12 +19,10 @@ warming_h, warming_m = map(int, (warming_time.split(".")))
 if mode == "0":
     off = datetime.datetime(year, off_month, off_day, off_hours, off_minutes)
     on = off - datetime.timedelta(hours=warming_h, minutes=warming_m)
-elif mode == "2":
 
+elif mode == "2":
     on = datetime.datetime(year, off_month, off_day, timer_on_h, timer_on_m)
     off = datetime.datetime(year, off_month, off_day, timer_off_h, timer_off_m)
-    print(on)
-    print(off)
 
 elif mode == "3":
     if Controller.get_room_temp() < 4:
@@ -33,7 +31,7 @@ elif mode == "3":
         off = datetime.datetime.now() + datetime.timedelta(minutes=1)
 
 # /home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/
-file = open("cron.txt", "w")
+file = open("/home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/cron.txt", "w")
 
 file.write(
     str(on.minute) + " " + str(on.hour) + " " + str(on.day) + " " + str(
