@@ -23,10 +23,10 @@ def network_fee(day_fee, night_fee, start_hour, end_hour):
     for i in range(time):
 
         current_hour = start_hour + i
+        # summertime
+        if 4 <= now.month <= 9:
 
-        if now.month >= 4 and now.month <= 9:
-
-            if current_hour >= 8 and current_hour <= 23:
+            if 8 <= current_hour <= 23:
 
                 fee += day_fee
 
@@ -34,8 +34,8 @@ def network_fee(day_fee, night_fee, start_hour, end_hour):
                 fee += night_fee
 
         else:
-
-            if current_hour >= 7 and current_hour <= 22:
+            # wintertime
+            if 7 <= current_hour <= 22:
 
                 fee += day_fee
 

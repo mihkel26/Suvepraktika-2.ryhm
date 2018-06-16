@@ -12,6 +12,8 @@ on_day, on_month = map(int, (lines[3].split(".")))
 timer_on_h, timer_on_m = map(int, (lines[2].split(".")))
 timer_off_h, timer_off_m = map(int, (lines[5].split(".")))
 mode = lines[1].strip("\n")
+min_temp = lines[6].strip("\n")
+max_temp = lines[7].strip("\n")
 
 warming_time = "1.45"
 warming_h, warming_m = map(int, (warming_time.split(".")))
@@ -25,9 +27,9 @@ elif mode == "2":
     off = datetime.datetime(year, off_month, off_day, timer_off_h, timer_off_m)
 
 elif mode == "3":
-    if Controller.get_room_temp() < 4:
+    if Controller.get_room_temp() < min_temp:
         on = datetime.datetime.now() + datetime.timedelta(minutes=1)
-    elif Controller.get_room_temp() > 8:
+    elif Controller.get_room_temp() > max_temp:
         off = datetime.datetime.now() + datetime.timedelta(minutes=1)
 
 # /home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/
