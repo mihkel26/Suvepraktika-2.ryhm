@@ -4,8 +4,8 @@ Projekti eesmärk on leida kõige soodsam kütmise periood. Kasutaja märgib kas
 Projekt on loodud Digitehnoloogiate Instituudi informaatika õppekava I aasta tudengite suvepraktika aine raames.
 
 Liikmed:
-Sten Piirsalu
-Kairo Pettai
-Mihkel Mägi
-Sander Lukas
+Sten Piirsalu,
+Kairo Pettai,
+Mihkel Mägi,
+Sander Lukas,
 Märten Joosep Penjam
