@@ -1,5 +1,6 @@
 import datetime
 import Controller
+import subprocess
 
 year = datetime.date.today().year
 
@@ -80,3 +81,5 @@ elif mode == "3":
     elif float(Controller.get_room_temp()) >= float(max_temp):
         off = datetime.datetime.now() + datetime.timedelta(minutes=2)
         write_off()
+
+subprocess.call(["sudo", "crontab", "/home/pi/suvepraktika/Suveprakitka-2.ryhm/main/python/src/cron.txt"])
