@@ -23,7 +23,7 @@ def write_on_off():
     # /home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/
     file = open("/home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/cron.txt", "w")
 
-    file.write("* * * * * /usr/bin/python3 /home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/turnOn.py\n")
+    file.write("* * * * * /usr/bin/python3 /home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/writeData.py\n")
     file.write(
         str(on.minute) + " " + str(on.hour) + " " + str(on.day) + " " + str(
             on.month) + " * /usr/bin/python3 /home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/turnOn.py\n")
@@ -39,7 +39,7 @@ def write_on():
     # /home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/
     file = open("/home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/cron.txt", "w")
 
-    file.write("* * * * * /usr/bin/python3 /home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/turnOn.py\n")
+    file.write("* * * * * /usr/bin/python3 /home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/writeData.py\n")
 
     file.write(
         str(on.minute) + " " + str(on.hour) + " " + str(on.day) + " " + str(
@@ -52,7 +52,7 @@ def write_on():
 def write_off():
     # /home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/
     file = open("/home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/cron.txt", "w")
-    file.write("* * * * * /usr/bin/python3 /home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/turnOn.py\n")
+    file.write("* * * * * /usr/bin/python3 /home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/writeData.py\n")
     file.write(
         str(off.minute) + " " + str(off.hour) + " " + str(off.day) + " " + str(
             off.month) + " * /usr/bin/python3 /home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/turnOff.py\n")
