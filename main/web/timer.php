@@ -104,6 +104,18 @@ if (isset($_POST["submitButton"])) {
     }
     //echo $timeInput;
 
+    if (!empty($_POST["dateDay"])) {
+			$dateDay = $_POST["dateDay"];
+	} else {
+			$dateError = "Kuupäeva pole sisestatud!";
+	}
+
+	if (empty($_POST["dateMonth"])) {
+		$dateMonth = intval($_POST["dateMonth"]);
+	} else {
+		$dateError = "Kuu pole sisestatud!";
+	}
+
     if (!empty($timeInputError) and !empty($endTimeInputError)) {
         echo "All Values have to be chosen";
     } else {
@@ -170,6 +182,32 @@ for ($i = 0; $i < 60; $i += 15) {
 }
 $endMinuteSelectHTML .= "</select> \n";
 
+// Kuupäeva valik
+$signupDaySelectHTML = "";
+$signupDaySelectHTML .= '<select name="dateDay">' ."\n";
+$signupDaySelectHTML .= '<option value="" selected disabled>päev</option>' ."\n";
+for ($i = 1; $i < 32; $i ++){
+	if ($i == $dateDay) {
+		$signupDaySelectHTML .= '<option value="' .$i .'" selected>' .$i .'</option>' ."\n";
+	} else {
+		$signupDaySelectHTML .= '<option value="' .$i .'">' .$i .'</option>' ." \n";
+	}
+}
+$signupDaySelectHTML .= "</select> \n";
+// Kuu valik
+$signupMonthSelectHTML = "";
+$monthNamesEt = ["jaanuar", "veebruar", "märts", "aprill", "mai", "juuni", "juuli", "august", "september", "oktoober", "november", "detsember"];
+$signupMonthSelectHTML .= '<select name="dateMonth">' ."\n";
+$signupMonthSelectHTML .= '<option value="" selected disabled>kuu</option>' ."\n";
+foreach ($monthNamesEt as $key=>$month){
+	if ($key + 1 === $dateMonth){
+		$signupMonthSelectHTML .= '<option value="' .($key + 1) .'" selected>' .$month .'</option>' ."\n";
+	} else {
+	$signupMonthSelectHTML .= '<option value="' .($key + 1) .'">' .$month .'</option>' ."\n";
+	}
+}
+$signupMonthSelectHTML .= "</select> \n";
+
 
 //led
 $deviceFile = fopen("/home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/data.txt", "r") or die ("Ei saa avada");
@@ -203,8 +241,9 @@ fclose($deviceFile);
         echo $endHourSelectHTML . "\n" . $endMinuteSelectHTML;
         ?>
         <br><br>
-
-
+        <label> Kuupäev </label>
+		<?php echo $signupDaySelectHTML ."\n".$signupMonthSelectHTML; ?>
+		<span><?php echo $signupBirthDayError; ?></span>
         <br><br>
         <input name="submitButton" type="submit" value="Sisesta">
     </form>
