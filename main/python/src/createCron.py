@@ -17,11 +17,11 @@ mode = lines[0].strip("\n")
 min_temp = lines[5].strip("\n")
 max_temp = lines[6].strip("\n")
 
-warming_time = calcPrice.device_const_heat_time()
-warming_h, warming_m = map(int, (warming_time.split(".")))
+#warming_time = calcPrice.device_const_heat_time()
+#warming_h, warming_m = map(int, (warming_time.split(".")))
 
-market_warming = calcPrice.device_market_heat_time()
-market_warming_h, market_warming_m = map(int, (warming_time.split(".")))
+#market_warming = calcPrice.device_market_heat_time()
+#market_warming_h, market_warming_m = map(int, (warming_time.split(".")))
 
 
 def write_on_off():
@@ -73,10 +73,10 @@ if mode == "0":
     on = off - datetime.timedelta(hours=warming_h, minutes=warming_m)
     write_on_off()
 
-elif mode == "1":
-    off = datetime.datetime(year, off_month, off_day, off_hours, off_minutes)
-    on = off - datetime.timedelta(hours=market_warming_h, minutes=market_warming_m)
-    write_on_off()
+#elif mode == "1":
+#    off = datetime.datetime(year, off_month, off_day, off_hours, off_minutes)
+#    on = off - datetime.timedelta(hours=market_warming_h, minutes=market_warming_m)
+#    write_on_off()
 
 elif mode == "2":
     on = datetime.datetime(year, off_month, off_day, timer_on_h, timer_on_m)
