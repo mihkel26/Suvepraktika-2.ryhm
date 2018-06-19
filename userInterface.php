@@ -158,7 +158,11 @@
 					<option value="4">elektri börsihinnast ning võrgutasudest</option>
 				</select>
 			<br><br>
-			<label>Sisesta kell, mis ajaks tahad, et põrand oleks soe</label>
+			<input type="radio" name="heatDevice" value="heat" /> Lülita seade see kell sisse
+			<br>
+			<input type="radio" name="preheatDevice" value="preheat" /> Soojenda seade selleks kellaks soovitud temperatuurini
+			<br>
+			<label>Sisesta soovitud kell</label>
 			<?php
 				echo $hourSelectHTML ."\n" . $minuteSelectHTML;
 			?>
