@@ -14,14 +14,21 @@ $notice = "";
 if (isset($_POST["submitButton"])) {
 
 
-    if (isset($_POST["tempSelect"])) {
-        if (empty($_POST["tempSelect"])) {
+    if (isset($_POST["minTempSelect"])) {
+        if (empty($_POST["minTempSelect"])) {
             $notice = "Nb, vaja on temperatuuri";
         } else {
-            $tempInput = $_POST["tempSelect"];
+            $minTempInput = $_POST["minTempSelect"];
         }
     }
-    //echo $_POST["tempSelect"];
+
+    if (isset($_POST["maxTempSelect"])) {
+        if (empty($_POST["maxTempSelect"])) {
+            $notice = "Nb, vaja on temperatuuri";
+        } else {
+            $maxTempInput = $_POST["maxTempSelect"];
+        }
+    }
 
     if (!empty($minTempInputError) and !empty($maxTempInputError)) {
         echo "All Values have to be chosen";
@@ -37,7 +44,7 @@ if (isset($_POST["submitButton"])) {
 $minTempSelectHTML = "";
 $minTempSelectHTML .= '<select name="minTempSelect">' . "\n";
 $minTempSelectHTML .= '<option value="" selected disabled>temp</option>' . "\n";
-for ($i = 3; $i < 25; $i++) {
+for ($i = 3; $i < 28; $i++) {
     if ($i == $minTempInput) {
         $minTempSelectHTML .= '<option value="' . $i . '" selected>' . $i . '</option>' . "\n";
     } else {
@@ -50,7 +57,7 @@ $minTempSelectHTML .= "</select> \n";
 $maxTempSelectHTML = "";
 $maxTempSelectHTML .= '<select name="maxTempSelect">' . "\n";
 $maxTempSelectHTML .= '<option value="" selected disabled>temp</option>' . "\n";
-for ($i = 3; $i < 25; $i++) {
+for ($i = 3; $i < 28; $i++) {
     if ($i == $maxTempInput) {
         $maxTempSelectHTML .= '<option value="' . $i . '" selected>' . $i . '</option>' . "\n";
     } else {
