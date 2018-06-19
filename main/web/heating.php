@@ -8,11 +8,11 @@
 	$hourToTxtFile = "";
 	$deviceState = "";
 	$signupMonthSelectHTML = "";
-	$signupDaySelectHTML = "abc";
+	$signupDaySelectHTML = "";
 	$dateMonth = "";
 	$dateDay = "";
-	$currentDateHour = date("H");
-	$currentDateHour = date("H");
+	//$currentDateHour = date("H");
+	//$currentDateMin = date("i");
 	$selectedPacket = "selected";
 	
 	$heatDevice = "";
@@ -23,6 +23,7 @@
 	$timeInputError = "";
 	$tempInputError = "";
 	$notice = "";
+	$success = "";
 	
 	// Kui vajutatakse submit nuppu
 	if(isset($_POST["submitButton"])) {
@@ -60,19 +61,19 @@
 		}
 		
 		// Kuupäeva kontroll
-		if (empty($_POST["dateDay"])) {
-			$dateDay = $_POST["signupBirthDay"];
+		if (!empty($_POST["dateDay"])) {
+			$dateDay = $_POST["dateDay"];
 		} else {
 			$dateError = "Kuupäeva pole sisestatud!";
 		}
 		
-		if (empty($_POST["dateMonth"])) {
-			$dateMonth = intval($_POST["signupBirthMonth"]);
+		if (!empty($_POST["dateMonth"])) {
+			$dateMonth = intval($_POST["dateMonth"]);
 		} else {
 			$dateError = "Kuu pole sisestatud!";
 		}
 		
-		if (isset ($_POST["hourSelect"]) and isset ($_POST["minuteSelect"])) {
+		if (isset($_POST["hourSelect"]) and isset($_POST["minuteSelect"])) {
 			if ($_POST["hourSelect"] < 10) {
 				$hourToTxtFile = "0".($_POST["hourSelect"]);
 			} else {
@@ -86,44 +87,49 @@
 			}
 			
 			$timeInput = $hourToTxtFile ."." .$minuteToTxtFile;
-			
 		}
 		
 		if (!empty($packetTypeError) and !empty($timeInputError)  and !empty($signupBirthDayError)) {
-			echo "Andmed saadetud -> põrand on kella " .$hourToTxtFile ."." .$minuteToTxtFile ." soe.";
+			$success = "Andmed saadetud -> põrand on kella " .$hourToTxtFile ."." .$minuteToTxtFile ." soe.";
 		} else {
 			$myFile = fopen("userNeeds.txt", "w") or die ("Ei saa avada (fail peab olema 'w' õigusega");
 			fwrite($myFile, $packetType ."\n" .$timeInput ."\n" .$tempInput ."\n" .$dateDay ."." .$dateMonth);
 			fclose($myFile);
 		}
-	
-	//radio
-	if (isset($_POST["gender"]) && !empty($_POST["gender"])){ //kui on määratud ja pole tühi
-			$gender = intval($_POST["gender"]);
-		} else {
-			$signupGenderError = " (Palun vali sobiv!) Määramata!";
-		}
 	}
 	
-	if (substr($currentDateHour, 1) === '0') {
+	// INPUT VÄLJAD
+	/* if (substr($currentDateHour, 1) === '0') {
 		$currentHour = (int)substr($currentDateHour, 1);
 	} else {
 		$currentHour = (int)$currentDateHour;
-	}
+	} */
 	
 	$hourSelectHTML = "";
 	$hourSelectHTML .= '<select name="hourSelect">' ."\n";
 	$hourSelectHTML .= '<option value="" selected disabled>hour</option>' ."\n";
-	for ($i = $currentHour; $i < 25; $i++) {
-		if($i == $hourInput) {
+	for ($i = 0; $i < 25; $i++) {
+		if ($i == $hourInput) {
 			$hourSelectHTML .= '<option value="' .$i .'" selected>' .$i .'</option>' ."\n";
 		} else {
 			$hourSelectHTML .= '<option value="' .$i .'">' .$i .'</option>' ." \n";
 		}
-		
 	}
 	$hourSelectHTML.= "</select> \n";
 	
+	/* if (substr($currentDateMin, 1) === '0') {
+		$currentMin = 0;
+	} else {
+		if ((int)$currentDateMin > 15) {
+			$currentMin = 30;
+		}
+		if ((int)$currentDateMin > 30) {
+			$currentMin = 45;
+		}
+		if ((int)$currentDateMin > 45) {
+			$currentMin = 0;
+		}
+	} */
 	
 	$minuteSelectHTML = "";
 	$minuteSelectHTML .= '<select name="minuteSelect">' ."\n";
@@ -134,7 +140,6 @@
 		} else {
 			$minuteSelectHTML .= '<option value="' .$i .'">' .$i .'</option>' ." \n";
 		}
-		
 	}
 	$minuteSelectHTML.= "</select> \n";
 	
@@ -168,11 +173,11 @@
 	$monthNamesEt = ["jaanuar", "veebruar", "märts", "aprill", "mai", "juuni", "juuli", "august", "september", "oktoober", "november", "detsember"];
 	$signupMonthSelectHTML .= '<select name="dateMonth">' ."\n";
 	$signupMonthSelectHTML .= '<option value="" selected disabled>kuu</option>' ."\n";
-	foreach ($monthNamesEt as $key=>$month){
+	foreach ($monthNamesEt as $key=>$month) {
 		if ($key + 1 === $dateMonth){
 			$signupMonthSelectHTML .= '<option value="' .($key + 1) .'" selected>' .$month .'</option>' ."\n";
 		} else {
-		$signupMonthSelectHTML .= '<option value="' .($key + 1) .'">' .$month .'</option>' ."\n";
+			$signupMonthSelectHTML .= '<option value="' .($key + 1) .'">' .$month .'</option>' ."\n";
 		}
 	}
 	$signupMonthSelectHTML .= "</select> \n";
@@ -214,6 +219,7 @@
 			<span><?php echo $signupBirthDayError; ?></span>
 			
 			<input name="submitButton" type="submit" value="Sisesta" style="margin:15px">
+			<?php echo $success; ?>
 		</form>	
 	</div> 
 		<div id="deviceState">
