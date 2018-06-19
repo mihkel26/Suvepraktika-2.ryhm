@@ -178,8 +178,8 @@
 			<label>Vali elektripakett </label>
 				<select name="packetType">
 					<option></option>
-					<option value="0" <?php if ($_POST["packetType"] == 0) {echo selectedPacket;}?>>konstantne</option>
-					<option value="1" <?php if ($_POST["packetType"] == 1) {echo selectedPacket;}?>>ainult börsihind</option>
+					<option value="0" <?php if ($_POST["packetType"] == "0") {echo selectedPacket;}?>>konstantne</option>
+					<option value="1" <?php if ($_POST["packetType"] == "1") {echo selectedPacket;}?>>ainult börsihind</option>
 				</select>
 			<br><br>
 			
@@ -193,7 +193,7 @@
 			
 			<label> Kuupäev </label>
 			<?php echo $signupDaySelectHTML ."\n".$signupMonthSelectHTML; ?>
-			<span><?php echo $signupBirthDayError; ?></span><br>
+			<br>
 			
 			<input name="submitButton" type="submit" value="Sisesta" style="margin: 15px">
 			<?php echo $success; ?>
