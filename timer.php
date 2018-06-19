@@ -108,8 +108,9 @@ if (isset($_POST["submitButton"])) {
         echo "All Values have to be chosen";
     } else {
         $myFile = fopen("userNeeds.txt", "w") or die ("Ei saa avada(file peab olema 'w' õigusega");
-        fwrite($myFile, "\n" . $timeInput . "\n\n\n" . $endTimeInput . "4\n8");
+        fwrite($myFile, "2\n" . $timeInput . "\n\n\n" . $endTimeInput . "\n\n");
         fclose($myFile);
+        echo "Korras";
 
     }
 
@@ -161,9 +162,9 @@ $endMinuteSelectHTML .= '<select name="endMinuteSelect">' . "\n";
 $endMinuteSelectHTML .= '<option value="" selected disabled>minute</option>' . "\n";
 for ($i = 0; $i < 60; $i += 15) {
     if ($i == $endMinuteInput) {
-        $EndMinuteSelectHTML .= '<option value="' . $i . '" selected>' . $i . '</option>' . "\n";
+        $endMinuteSelectHTML .= '<option value="' . $i . '" selected>' . $i . '</option>' . "\n";
     } else {
-        $EndMinuteSelectHTML .= '<option value="' . $i . '">' . $i . '</option>' . " \n";
+        $endMinuteSelectHTML .= '<option value="' . $i . '">' . $i . '</option>' . " \n";
     }
 
 }
@@ -171,8 +172,8 @@ $endMinuteSelectHTML .= "</select> \n";
 
 
 //led
-$deviceFile = fopen("devicestate.txt", "r") or die ("Ei saa avada");
-$deviceState = fread($deviceFile, filesize("devicestate.txt"));
+$deviceFile = fopen("/home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/data.txt", "r") or die ("Ei saa avada");
+$deviceState = fread($deviceFile, filesize("/home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/data.txt"));
 fclose($deviceFile);
 
 ?>
@@ -197,6 +198,7 @@ fclose($deviceFile);
         echo $hourSelectHTML . "\n" . $minuteSelectHTML;
         ?>
         <br><br>
+        <label>Sisesta lõpuaeg</label>
         <?php
         echo $endHourSelectHTML . "\n" . $endMinuteSelectHTML;
         ?>
