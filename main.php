@@ -20,11 +20,11 @@
 			<div id="shortcuts">
 				
 					
-					<a class="btn" href="http://greeny.cs.tlu.ee/~penjmart/Suvepraktika-2.ryhm/userInterface.php">Kütteaeg kellaajaks</a>
+					<a class="btn" href="userInterface.php">Kütteaeg kellaajaks</a>
 					
-					<a class="btn" href="">Kütteaeg perioodiks</a>
+					<a class="btn" href="timer.php">Vali ise ajavahemik</a>
 					
-					<a class="btn" href="">Temperatuur</a>
+					<a class="btn" href="holdtemp.php">Hoia temperatuuri</a>
 					
 			</div>		
 				
