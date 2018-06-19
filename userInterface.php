@@ -7,7 +7,16 @@
 	$minuteInput = null;
 	$hourToTxtFile = "";
 	$deviceState = "";
+	$signupMonthSelectHTML = "";
+	$signupDaySelectHTML = "abc";
+	$signupBirthMonth = "";
+	$signupBirthDay = "";
 	
+	//radio
+	$heatDevice = "";
+	$preheatDevice = "";
+	
+	$signupBirthDayError = "";
 	$packetTypeError = "";
 	$timeInputError = "";
 	$tempInputError = "";
@@ -15,12 +24,23 @@
 	
 	//kas vajutati sumbit nuppu
 	if(isset($_POST["submitButton"])){
-		
 		if (isset($_POST["packetType"])){
 			if (empty($_POST["packetType"])){
 				$packetTypeError = "NB, Vali enda elektrituru plaan!";
 			}else{
 				$packetType = $_POST["packetType"];
+				//echo $packetType;
+		
+			}
+			
+		}
+		
+		
+		if (isset($_POST["proov"])){
+			if (empty($_POST["proov"])){
+				$packetTypeError = "NB, Vali enda elektrituru plaan!";
+			}else{
+				$proov = $_POST["proov"];
 				//echo $packetType;
 		
 			}
@@ -59,6 +79,21 @@
 		}
 		//echo $_POST["tempSelect"];
 		
+		//kas sünnikuupäev on sisestatud
+		if (empty($_POST["signupBirthDay"])){
+			$signupBirthDay = $_POST["signupBirthDay"];
+			//echo $signupBirthDay;
+		} else {
+			$signupBirthDayError = "Kuupäeva pole sisestatud!";
+		}
+		
+		//kas sünnikuu on sisestatud
+		if ( empty($_POST["signupBirthMonth"]) ){
+			$signupBirthMonth = intval($_POST["signupBirthMonth"]);
+		} else {
+			$signupBirthDayError .= " Kuu pole sisestatud!";
+		}
+		
 		
 		if (isset ($_POST["hourSelect"]) and isset ($_POST["minuteSelect"])){
 			if (($_POST["hourSelect"]) < 10) {
@@ -77,15 +112,58 @@
 		}
 		//echo $timeInput;
 		
-		if(!empty($packetTypeError) and !empty($timeInputError) and !empty($tempInputError)){
+		if(!empty($packetTypeError) and !empty($timeInputError)  and !empty($signupBirthDayError)){
 			echo "All Values have to be chosen";
 		} else {
 			$myFile = fopen("userNeeds.txt", "w") or die ("Ei saa avada(file peab olema 'w' õigusega");
-			fwrite($myFile, "packet,".$packetType."\n"."time,".$timeInput."\n"."temp,".$tempInput."\n");
+			fwrite($myFile, $packetType."\n".$timeInput."\n".$tempInput."\n".$signupBirthDay.".".$signupBirthMonth);
 			fclose($myFile);
 			
 		}
 		
+		//Tekitame kuupäeva valiku
+		$signupDaySelectHTML = "";
+		$signupDaySelectHTML .= '<select name="signupBirthDay">' ."\n";
+		$signupDaySelectHTML .= '<option value="" selected disabled>päev</option>' ."\n";
+		for ($i = 1; $i < 32; $i ++){
+			if($i == $signupBirthDay){
+				$signupDaySelectHTML .= '<option value="' .$i .'" selected>' .$i .'</option>' ."\n";
+			} else {
+				$signupDaySelectHTML .= '<option value="' .$i .'">' .$i .'</option>' ." \n";
+			}
+			
+		}
+		$signupDaySelectHTML.= "</select> \n";
+		
+		
+		
+		//Tekitame kuu valiku
+		
+		$signupMonthSelectHTML = "";
+		$monthNamesEt = ["jaanuar", "veebruar", "märts", "aprill", "mai", "juuni", "juuli", "august", "september", "oktoober", "november", "detsember"];
+		$signupMonthSelectHTML .= '<select name="signupBirthMonth">' ."\n";
+		$signupMonthSelectHTML .= '<option value="" selected disabled>kuu</option>' ."\n";
+		foreach ($monthNamesEt as $key=>$month){
+			if ($key + 1 === $signupBirthMonth){
+				$signupMonthSelectHTML .= '<option value="' .($key + 1) .'" selected>' .$month .'</option>' ."\n";
+			} else {
+			$signupMonthSelectHTML .= '<option value="' .($key + 1) .'">' .$month .'</option>' ."\n";
+			}
+		}
+		$signupMonthSelectHTML .= "</select> \n";
+			
+		
+		
+			
+	
+	
+	//radio
+	if (isset($_POST["gender"]) && !empty($_POST["gender"])){ //kui on määratud ja pole tühi
+			$gender = intval($_POST["gender"]);
+		} else {
+			$signupGenderError = " (Palun vali sobiv!) Määramata!";
+	}
+	
 	//hourSelectHTML
 	//minuteSelectHTML
 	}
@@ -128,10 +206,12 @@
 		
 	}
 	$tempSelectHTML.= "</select> \n";
+	
+	
 
 	//led
 	$deviceFile = fopen("devicestate.txt", "r") or die ("Ei saa avada");
-	$deviceState = fread($deviceFile, filesize("devicestate.txt");
+	$deviceState = fread($deviceFile, filesize("devicestate.txt"));
 	fclose($deviceFile);
 
 ?>
@@ -139,7 +219,9 @@
 <!DOCTYPE html>
 <head>
 	<title> User input </title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="design/design.css">
 </head>
 
 <style>
@@ -158,19 +240,33 @@
 					<option value="4">elektri börsihinnast ning võrgutasudest</option>
 				</select>
 			<br><br>
-			<input type="radio" name="heatDevice" value="heat" /> Lülita seade see kell sisse
-			<br>
-			<input type="radio" name="preheatDevice" value="preheat" /> Soojenda seade selleks kellaks soovitud temperatuurini
-			<br>
-			<label>Sisesta soovitud kell</label>
+			
+			<label>Sisesta aeg, mis ajaks tahad, et põrand oleks soe</label>
 			<?php
 				echo $hourSelectHTML ."\n" . $minuteSelectHTML;
 			?>
 			<br><br>
-			<label>Vali temperatuur, milleni tahad kütta </label>
+			
+			<label>Sisesta temperatuur, milleni tahad põranda kütta. </label>
 			<?php
-				echo $tempSelectHTML;
+				echo $tempSelectHTML ;
 			?>
+			<br><br>
+			
+			<label> Vali kuupäev</label>
+			<?php
+			
+			echo $signupDaySelectHTML ."\n".$signupMonthSelectHTML;
+			?>
+			<span><?php echo $signupBirthDayError; ?></span>
+			
+			<br><br>
+
+			
+			
+			
+			
+			
 			<br><br>
 			<input name="submitButton" type="submit" value="Sisesta">
 			</form>
@@ -180,9 +276,16 @@
 		<br><br>
 		<div id="deviceState">
 			<label> device on/off?</label>
-				<?php
-				    echo $deviceState
+				<?php 
+						echo $deviceState;
 				?>
+		</div>
+		
+		<br><br>
+		<br><br>
+		<br><br>
+		<div id= "footer">
+			<a  class="btn btn-small" href="http://greeny.cs.tlu.ee/~penjmart/Suvepraktika-2.ryhm/main.php">Tagasi pealehele</a>
 		</div>
 		
 	
