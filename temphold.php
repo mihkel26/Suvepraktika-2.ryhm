@@ -118,7 +118,7 @@ fclose($deviceFile);
 <br><br>
 <br><br>
 <div id="footer">
-    <a class="btn btn-small" href="http://greeny.cs.tlu.ee/~penjmart/Suvepraktika-2.ryhm/main.php">Tagasi pealehele</a>
+    <a class="btn btn-small" href="main.php">Tagasi pealehele</a>
 </div>
 
 
