@@ -34,7 +34,7 @@ if (isset($_POST["submitButton"])) {
         echo "All Values have to be chosen";
     } else {
         $myFile = fopen("userNeeds.txt", "w") or die ("Ei saa avada(file peab olema 'w' õigusega");
-        fwrite($myFile, "3\n\n\n\n\n" . $minTempInput . "\n" . $maxTempInput);
+        fwrite($myFile, "3\n14.00\n16.06\n30\n18.00\n" . $minTempInput . "\n" . $maxTempInput);
         fclose($myFile);
 
     }

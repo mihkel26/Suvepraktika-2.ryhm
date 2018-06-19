@@ -108,7 +108,7 @@ if (isset($_POST["submitButton"])) {
         echo "All Values have to be chosen";
     } else {
         $myFile = fopen("userNeeds.txt", "w") or die ("Ei saa avada(file peab olema 'w' õigusega");
-        fwrite($myFile, "2\n" . $timeInput . "\n\n\n" . $endTimeInput . "\n\n");
+        fwrite($myFile, "2\n" . $timeInput . "\n18.06\n30\n" . $endTimeInput . "\n\n");
         fclose($myFile);
         echo "Korras";
 
