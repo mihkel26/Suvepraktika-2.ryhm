@@ -82,4 +82,4 @@ elif mode == "3":
         off = datetime.datetime.now() + datetime.timedelta(minutes=2)
         write_off()
 
-subprocess.call(["sudo", "crontab", "/home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/cron.txt"])
+subprocess.call(["crontab", "/home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/cron.txt"])
