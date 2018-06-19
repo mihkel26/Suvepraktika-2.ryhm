@@ -1,5 +1,11 @@
 <?php
-
+	$deviceFile = fopen("/home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/data.txt", "r") or die ("Ei saa avada (fail peab olema 'w' õigusega");
+	$deviceState = fread($deviceFile, filesize("/home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/data.txt"));
+	fclose($deviceFile);
+	
+	list($state, $devTemp, $roomTemp, $marketPrice) = explode(" ", $deviceState);
+	$devTemp = round($devTemp, 2)
+	$roomTemp = round($roomTemp, 2)
 ?>
 <!DOCTYPE html>
 <head>
@@ -8,28 +14,22 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="design/design.css">
 </head>
-
 <body>
 	<div id="Header">
 	<h1> Targa Maja Lahendus</h1>
 	</div>
-		
-	
-	
-		<div id="userChoice">
-			<div id="shortcuts">
-				
-					
-					<a class="btn" href="userInterface.php">Kütteaeg kellaajaks</a>
-					
-					<a class="btn" href="timer.php">Vali ise ajavahemik</a>
-					
-					<a class="btn" href="holdtemp.php">Hoia temperatuuri</a>
-					
-			</div>		
-				
+	<div id="userChoice">
+		<div style="margin-bottom: 15px">
+			<div> Seade on: <span><?php echo $state; ?></div>
+			<div> Seadme temperatuur: <span><?php echo $devTemp; ?></div>
+			<div> Ruumi temperatuur: <span><?php echo $roomTemp; ?></div>
+			<div> Börsihind: <span><?php echo $marketPrice; ?></div>
 		</div>
-		
-	
+		<div id="shortcuts">
+			<a class="btn" href="userInterface.php">Kütteaeg kellaajaks</a>
+			<a class="btn" href="timer.php">Vali ise ajavahemik</a>
+			<a class="btn" href="holdtemp.php">Hoia temperatuuri</a>	
+		</div>				
+	</div>
 </body>
 </html>
