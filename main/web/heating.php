@@ -11,8 +11,6 @@
 	$signupDaySelectHTML = "";
 	$dateMonth = "";
 	$dateDay = "";
-	//$currentDateHour = date("H");
-	//$currentDateMin = date("i");
 	$selectedPacket = "selected";
 	
 	$heatDevice = "";
@@ -98,17 +96,10 @@
 		}
 	}
 	
-	// INPUT VÄLJAD
-	/* if (substr($currentDateHour, 1) === '0') {
-		$currentHour = (int)substr($currentDateHour, 1);
-	} else {
-		$currentHour = (int)$currentDateHour;
-	} */
-	
 	$hourSelectHTML = "";
 	$hourSelectHTML .= '<select name="hourSelect">' ."\n";
 	$hourSelectHTML .= '<option value="" selected disabled>hour</option>' ."\n";
-	for ($i = 0; $i < 25; $i++) {
+	for ($i = 0; $i < 24; $i++) {
 		if ($i == $hourInput) {
 			$hourSelectHTML .= '<option value="' .$i .'" selected>' .$i .'</option>' ."\n";
 		} else {
@@ -116,20 +107,6 @@
 		}
 	}
 	$hourSelectHTML.= "</select> \n";
-	
-	/* if (substr($currentDateMin, 1) === '0') {
-		$currentMin = 0;
-	} else {
-		if ((int)$currentDateMin > 15) {
-			$currentMin = 30;
-		}
-		if ((int)$currentDateMin > 30) {
-			$currentMin = 45;
-		}
-		if ((int)$currentDateMin > 45) {
-			$currentMin = 0;
-		}
-	} */
 	
 	$minuteSelectHTML = "";
 	$minuteSelectHTML .= '<select name="minuteSelect">' ."\n";
