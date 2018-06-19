@@ -21,7 +21,6 @@
 	$dateError = "";
 	$packetTypeError = "";
 	$timeInputError = "";
-	$tempInputError = "";
 	$notice = "";
 	$success = "";
 	
@@ -87,11 +86,12 @@
 			}
 			
 			$timeInput = $hourToTxtFile ."." .$minuteToTxtFile;
+		} else {
+			$timeInputError = "Määra aeg";
 		}
 		
-		if (!empty($packetTypeError) and !empty($timeInputError)  and !empty($signupBirthDayError)) {
+		if (empty($packetTypeError) and empty($dateError) and empty($notice) and empty($timeInputError)) {
 			$success = "Andmed saadetud -> põrand on kella " .$hourToTxtFile ."." .$minuteToTxtFile ." soe.";
-		} else {
 			$myFile = fopen("userNeeds.txt", "w") or die ("Ei saa avada (fail peab olema 'w' õigusega");
 			fwrite($myFile, $packetType ."\n" .$timeInput ."\n" .$tempInput ."\n" .$dateDay ."." .$dateMonth);
 			fclose($myFile);
@@ -216,17 +216,17 @@
 			
 			<label> Kuupäev </label>
 			<?php echo $signupDaySelectHTML ."\n".$signupMonthSelectHTML; ?>
-			<span><?php echo $signupBirthDayError; ?></span>
+			<span><?php echo $signupBirthDayError; ?></span><br>
 			
-			<input name="submitButton" type="submit" value="Sisesta" style="margin:15px">
+			<input name="submitButton" type="submit" value="Sisesta" style="margin: 15px">
 			<?php echo $success; ?>
 		</form>	
 	</div> 
-		<div id="deviceState">
+		<div id="deviceState" style="margin: 15px">
 			<label> device on/off?</label>
 				<?php echo $deviceState; ?>
 		</div>
-		<div id= "footer">
+		<div id="footer">
 			<a class="btn btn-small" href="main.php">Pealehele</a>
 		</div>
 </body>
