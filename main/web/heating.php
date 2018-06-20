@@ -8,9 +8,11 @@
 	$hourToTxtFile = "";
 	$deviceState = "";
 	$signupMonthSelectHTML = "";
-	$signupDaySelectHTML = "";
+	$signupDaySelectHTML = "abc";
 	$dateMonth = "";
 	$dateDay = "";
+	$currentDateHour = date("H");
+	$currentDateHour = date("H");
 	$selectedPacket = "selected";
 	
 	$heatDevice = "";
@@ -19,8 +21,8 @@
 	$dateError = "";
 	$packetTypeError = "";
 	$timeInputError = "";
+	$tempInputError = "";
 	$notice = "";
-	$success = "";
 	
 	// Kui vajutatakse submit nuppu
 	if(isset($_POST["submitButton"])) {
@@ -58,19 +60,19 @@
 		}
 		
 		// Kuupäeva kontroll
-		if (!empty($_POST["dateDay"])) {
-			$dateDay = $_POST["dateDay"];
+		if (empty($_POST["dateDay"])) {
+			$dateDay = $_POST["signupBirthDay"];
 		} else {
 			$dateError = "Kuupäeva pole sisestatud!";
 		}
 		
-		if (!empty($_POST["dateMonth"])) {
-			$dateMonth = intval($_POST["dateMonth"]);
+		if (empty($_POST["dateMonth"])) {
+			$dateMonth = intval($_POST["signupBirthMonth"]);
 		} else {
 			$dateError = "Kuu pole sisestatud!";
 		}
 		
-		if (isset($_POST["hourSelect"]) and isset($_POST["minuteSelect"])) {
+		if (isset ($_POST["hourSelect"]) and isset ($_POST["minuteSelect"])) {
 			if ($_POST["hourSelect"] < 10) {
 				$hourToTxtFile = "0".($_POST["hourSelect"]);
 			} else {
@@ -84,29 +86,44 @@
 			}
 			
 			$timeInput = $hourToTxtFile ."." .$minuteToTxtFile;
-		} else {
-			$timeInputError = "Määra aeg";
+			
 		}
 		
-		if (empty($packetTypeError) and empty($dateError) and empty($notice) and empty($timeInputError)) {
-			$success = "Andmed saadetud -> põrand on kella " .$hourToTxtFile ."." .$minuteToTxtFile ." soe.";
+		if (!empty($packetTypeError) and !empty($timeInputError)  and !empty($signupBirthDayError)) {
+			echo "Andmed saadetud -> põrand on kella " .$hourToTxtFile ."." .$minuteToTxtFile ." soe.";
+		} else {
 			$myFile = fopen("userNeeds.txt", "w") or die ("Ei saa avada (fail peab olema 'w' õigusega");
 			fwrite($myFile, $packetType ."\n" .$timeInput ."\n" .$tempInput ."\n" .$dateDay ."." .$dateMonth);
 			fclose($myFile);
 		}
+	
+	//radio
+	if (isset($_POST["gender"]) && !empty($_POST["gender"])){ //kui on määratud ja pole tühi
+			$gender = intval($_POST["gender"]);
+		} else {
+			$signupGenderError = " (Palun vali sobiv!) Määramata!";
+		}
+	}
+	
+	if (substr($currentDateHour, 1) === '0') {
+		$currentHour = (int)substr($currentDateHour, 1);
+	} else {
+		$currentHour = (int)$currentDateHour;
 	}
 	
 	$hourSelectHTML = "";
 	$hourSelectHTML .= '<select name="hourSelect">' ."\n";
 	$hourSelectHTML .= '<option value="" selected disabled>hour</option>' ."\n";
-	for ($i = 0; $i < 24; $i++) {
-		if ($i == $hourInput) {
+	for ($i = $currentHour; $i < 25; $i++) {
+		if($i == $hourInput) {
 			$hourSelectHTML .= '<option value="' .$i .'" selected>' .$i .'</option>' ."\n";
 		} else {
 			$hourSelectHTML .= '<option value="' .$i .'">' .$i .'</option>' ." \n";
 		}
+		
 	}
 	$hourSelectHTML.= "</select> \n";
+	
 	
 	$minuteSelectHTML = "";
 	$minuteSelectHTML .= '<select name="minuteSelect">' ."\n";
@@ -117,6 +134,7 @@
 		} else {
 			$minuteSelectHTML .= '<option value="' .$i .'">' .$i .'</option>' ." \n";
 		}
+		
 	}
 	$minuteSelectHTML.= "</select> \n";
 	
@@ -150,11 +168,11 @@
 	$monthNamesEt = ["jaanuar", "veebruar", "märts", "aprill", "mai", "juuni", "juuli", "august", "september", "oktoober", "november", "detsember"];
 	$signupMonthSelectHTML .= '<select name="dateMonth">' ."\n";
 	$signupMonthSelectHTML .= '<option value="" selected disabled>kuu</option>' ."\n";
-	foreach ($monthNamesEt as $key=>$month) {
+	foreach ($monthNamesEt as $key=>$month){
 		if ($key + 1 === $dateMonth){
 			$signupMonthSelectHTML .= '<option value="' .($key + 1) .'" selected>' .$month .'</option>' ."\n";
 		} else {
-			$signupMonthSelectHTML .= '<option value="' .($key + 1) .'">' .$month .'</option>' ."\n";
+		$signupMonthSelectHTML .= '<option value="' .($key + 1) .'">' .$month .'</option>' ."\n";
 		}
 	}
 	$signupMonthSelectHTML .= "</select> \n";
@@ -178,8 +196,8 @@
 			<label>Vali elektripakett </label>
 				<select name="packetType">
 					<option></option>
-					<option value="0" <?php if ($_POST["packetType"] == "0") {echo selectedPacket;}?>>konstantne</option>
-					<option value="1" <?php if ($_POST["packetType"] == "1") {echo selectedPacket;}?>>ainult börsihind</option>
+					<option value="0" <?php if ($_POST["packetType"] == 0) {echo selectedPacket;}?>>konstantne</option>
+					<option value="1" <?php if ($_POST["packetType"] == 1) {echo selectedPacket;}?>>ainult börsihind</option>
 				</select>
 			<br><br>
 			
@@ -193,17 +211,13 @@
 			
 			<label> Kuupäev </label>
 			<?php echo $signupDaySelectHTML ."\n".$signupMonthSelectHTML; ?>
-			<br>
+			<span><?php echo $signupBirthDayError; ?></span>
 			
-			<input name="submitButton" type="submit" value="Sisesta" style="margin: 15px">
-			<?php echo $success; ?>
+			<input name="submitButton" type="submit" value="Sisesta" style="margin:15px">
 		</form>	
 	</div> 
-		<div id="deviceState" style="margin: 15px">
-			<label> device on/off?</label>
-				<?php echo $deviceState; ?>
-		</div>
-		<div id="footer">
+		
+		<div id= "footer">
 			<a class="btn btn-small" href="main.php">Pealehele</a>
 		</div>
 </body>
