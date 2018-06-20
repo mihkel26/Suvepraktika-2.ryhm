@@ -3,9 +3,9 @@
 	$deviceState = fread($deviceFile, filesize("/home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/data.txt"));
 	fclose($deviceFile);
 	
-	list($state, $devTemp, $roomTemp, $marketPrice) = explode(" ", $deviceState);
-	$devTemp = round($devTemp, 2)
-	$roomTemp = round($roomTemp, 2)
+	list($state, $devTemp, $roomTemp, $marketPrice) = explode("\n", $deviceState);
+	$devTemp = round($devTemp, 2);
+	$roomTemp = round($roomTemp, 2);
 ?>
 <!DOCTYPE html>
 <head>
@@ -19,16 +19,17 @@
 	<h1> Targa Maja Lahendus</h1>
 	</div>
 	<div id="userChoice">
-		<div style="margin-bottom: 15px">
+		<div style="margin-bottom: 15px; color : white; text-align: center;">
 			<div> Seade on: <span><?php echo $state; ?></div>
 			<div> Seadme temperatuur: <span><?php echo $devTemp; ?></div>
 			<div> Ruumi temperatuur: <span><?php echo $roomTemp; ?></div>
 			<div> Börsihind: <span><?php echo $marketPrice; ?></div>
 		</div>
+		<br><br>
 		<div id="shortcuts">
-			<a class="btn" href="userInterface.php">Kütteaeg kellaajaks</a>
+			<a class="btn" href="heating.php">Kütteaeg kellaajaks</a>
 			<a class="btn" href="timer.php">Vali ise ajavahemik</a>
-			<a class="btn" href="holdtemp.php">Hoia temperatuuri</a>	
+			<a class="btn" href="temphold.php">Hoia temperatuuri</a>	
 		</div>				
 	</div>
 </body>
