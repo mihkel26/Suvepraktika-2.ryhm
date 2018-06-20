@@ -120,7 +120,7 @@ if (isset($_POST["submitButton"])) {
         echo "All Values have to be chosen";
     } else {
         $myFile = fopen("userNeeds.txt", "w") or die ("Ei saa avada(file peab olema 'w' õigusega");
-        fwrite($myFile, "2\n" . $timeInput . "\n".$dateDay ."." . $dateMonth . "\n30\n" . $endTimeInput . "\n4\n8\n");
+        fwrite($myFile, "2\n" . $timeInput . "\n".$dateDay . "." .$dateMonth . "\n30\n" . $endTimeInput . "\n4\n8\n");
         fclose($myFile);
         echo "Korras";
 
@@ -251,12 +251,7 @@ fclose($deviceFile);
 </div>
 <br><br>
 <br><br>
-<div id="deviceState">
-    <label> device on/off?</label>
-    <?php
-    echo $deviceState;
-    ?>
-</div>
+
 
 <br><br>
 <br><br>
