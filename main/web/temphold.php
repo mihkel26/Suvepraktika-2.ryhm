@@ -107,12 +107,7 @@ fclose($deviceFile);
 </div>
 <br><br>
 <br><br>
-<div id="deviceState">
-    <label> device on/off?</label>
-    <?php
-    echo $deviceState;
-    ?>
-</div>
+
 
 <br><br>
 <br><br>
