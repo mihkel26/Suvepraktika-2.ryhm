@@ -10,6 +10,8 @@ Rasperry pi on ühenduses ITvilla releeplokiga, mille külge on omakorda ühenda
 ## Paigaldusjuhised
 Rasperry Pi panna voolivõrku, ühendada taha ekraan, klaviatuur ja hiir. Järgmiseks ühendada Raspberry järgi ITVilla releeplokk module IT5888-4, mille kollane juhe panna A ning punane B ModbusRTU auku. Releeplokiga ühendada veel [radiaatorküttesimulaator], mille kahe juhtme otsiku must juhe läheb GND ning punane D pessa. Nelja juhtmega otsiku puhul kollane - 7, punane - 8, roheline ning must GND. Välistemperatuuri mõõdiku kahe juhtme otsiku must juhe läheb GND ning punane D pessa. Labori toiteplokk ühendada Power V0 ja VS pessa ning miinus ots GND. Praktika ajal kasutati 10 V.
 
+Skeem: https://gyazo.com/97646a5d52c69408a6709f99102b88ee
+
 
 1. Raspberry Pi’sse tuleb allalaadida vajalikud rakenduse programmid. (https://github.com/mihkel26/Suvepraktika-2.ryhm)
 2. Allalaetud .py failid tuleks paigutada kausta /home/pi/suvepraktika/Suvepraktika-2.ryhm/main/python/src/data.txt, et PHP ja pythoni ei läheks omavahel pahuksisse (Suvepraktika näitel)
