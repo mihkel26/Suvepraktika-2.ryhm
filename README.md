@@ -8,7 +8,7 @@ Rasperry Pi 2 peal kasutasime PyModbus, Python 3, cron, Apache2 veebiserver, mil
 Rasperry pi on ühenduses ITvilla releeplokiga, mille külge on omakorda ühendatud temperatuuri mõõdik ning radiaatorkütte simulaator.
 
 ## Paigaldusjuhised
-Rasperry Pi panna voolivõrku, ühendada taha ekraan, klaviatuur ja hiir. Järgmiseks ühendada Raspberry järgi ITVilla releeplokk module IT5888-4, mille kollane juhe panna A ning punane B ModbusRTU auku. Releeplokiga ühendada veel [radiaatorküttesimulaator], mille kahe juhtme otsiku must juhe läheb GND ning punane D pessa. Nelja juhtmega otsiku puhul kollane - 7, punane - 8, roheline ning must GND. Välistemperatuuri mõõdiku kahe juhtme otsiku must juhe läheb GND ning punane D pessa. Labori toiteplokk ühendada Power V0 ja VS pessa ning miinus ots GND. Praktika ajal kasutati 10 V.
+Rasperry Pi panna voolivõrku, ühendada taha ekraan, klaviatuur ja hiir. Järgmiseks ühendada Raspberry järgi ITVilla releeplokk module IT5888-4, mille kollane juhe panna A ning punane B ModbusRTU auku. Releeplokiga ühendada veel [radiaatorküttesimulaator], mille kahe juhtme otsiku must juhe läheb GND ning punane D pessa. Nelja juhtmega otsiku puhul kollane - 7, punane - 8, roheline ning must GND. Välistemperatuuri mõõdiku kahe juhtme otsiku must juhe läheb GND ning punane D pessa. Labori toiteplokk ühendada Power V0 ja VS pessa ning miinus ots GND. Praktika ajal kasutati 10 V. Raspberry Pi-l kasutada Raspbian Stretchi ja Python 3e.
 
 Skeem: https://gyazo.com/97646a5d52c69408a6709f99102b88ee
 
